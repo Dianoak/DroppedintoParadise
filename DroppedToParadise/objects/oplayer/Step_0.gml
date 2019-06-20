@@ -35,6 +35,7 @@ if place_meeting(x,y+vsp, owall)
 	vsp = 0; 
 }
 
+//important change
 
 
 x += hsp
