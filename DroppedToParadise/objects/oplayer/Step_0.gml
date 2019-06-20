@@ -1,15 +1,35 @@
 //variables
 right = keyboard_check(ord("D"))
 left = keyboard_check(ord("A"))
+sprint = keyboard_check(vk_shift)
+crouch1 = keyboard_check(ord("C"))
+crouch2 = keyboard_check(vk_control)
+jump1 = keyboard_check_pressed(vk_space)
+jump2 = keyboard_check_pressed(ord("W"))
 
 //state checks
-onground = place_meeting(x,y-1,owall)
+onground = place_meeting(x,y+1,owall)
 onwall = place_meeting(x+1,y,owall) - place_meeting(x-1,y,owall)
 
 //movement
 var move = right - left
 
-hsp = move * walksp
+if !sprint
+	{
+		hsp = move * walksp	
+	} else
+		{
+			hsp = move * sprintsp
+		}
+
+//crouch
+if crouch1 || crouch2
+	{
+		sprite_index = splayercrouch
+	} else
+		{
+			sprite_index = splayerstand	
+		}
 
 //gravity
 if !onground
@@ -35,7 +55,16 @@ if place_meeting(x,y+vsp, owall)
 	vsp = 0; 
 }
 
-//important change
+//jump
+if onground
+	{
+		if jump1 || jump2
+			{
+				vsp = jumph
+			}		
+	}
+
+
 
 
 x += hsp
